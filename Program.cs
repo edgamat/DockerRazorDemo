@@ -1,9 +1,14 @@
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-builder.Services.AddHealthChecks();
+
+builder.Services.AddHealthChecks()
+    .AddCheck("simulated_failure", () =>
+        HealthCheckResult.Unhealthy("Deliberately broken for Phase 13"));
 
 var app = builder.Build();
 
