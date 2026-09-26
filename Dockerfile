@@ -2,11 +2,14 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
+ARG BUILD_VERSION=1.0.0.0
+
 COPY DockerRazorDemo.csproj .
 RUN dotnet restore
 
 COPY . .
-RUN dotnet publish -c Release -o /app/publish --no-restore
+RUN dotnet publish -c Release -o /app/publish --no-restore \
+    -p:Version=${BUILD_VERSION} -p:AssemblyVersion=${BUILD_VERSION}
 
 # ---- runtime stage ----
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
