@@ -6,9 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
 
-builder.Services.AddHealthChecks()
-    .AddCheck("simulated_failure", () =>
-        HealthCheckResult.Unhealthy("Deliberately broken for Phase 13"));
+builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
