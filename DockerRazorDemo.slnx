@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/DockerRazorDemo.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/DockerRazorDemo.Tests.csproj" />
+  </Folder>
+</Solution>

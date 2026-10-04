@@ -4,10 +4,10 @@ WORKDIR /src
 
 ARG BUILD_VERSION=1.0.0.0
 
-COPY DockerRazorDemo.csproj .
+COPY src/DockerRazorDemo.csproj .
 RUN dotnet restore
 
-COPY . .
+COPY src/. .
 RUN dotnet publish -c Release -o /app/publish --no-restore \
     -p:Version=${BUILD_VERSION} -p:AssemblyVersion=${BUILD_VERSION}
 
