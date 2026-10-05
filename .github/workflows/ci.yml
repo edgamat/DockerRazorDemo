@@ -4,6 +4,10 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,4 +18,12 @@ jobs:
           dotnet-version: '10.0.x'
       - run: dotnet build
       - run: dotnet test
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Verify GHCR login
+        run: docker pull ghcr.io/edgamat/docker-razor-demo:this-tag-should-not-exist
+        continue-on-error: true
       - run: docker build --build-arg BUILD_VERSION=0.0.0.1 -t docker-razor-demo:ci .
